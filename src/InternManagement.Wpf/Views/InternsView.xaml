@@ -1,0 +1,77 @@
+<UserControl x:Class="InternManagement.Wpf.Views.InternsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:InternManagement.Core.Models;assembly=InternManagement.Core">
+    <DockPanel>
+        <!-- Tiêu đề trang: Quản lý thực tập sinh (Admin) hoặc Thực tập sinh của tôi (Mentor) -->
+        <TextBlock x:Name="txtTitle" DockPanel.Dock="Top" Text="Quản lý thực tập sinh" Style="{StaticResource PageTitle}" />
+
+        <!-- Khu vực thanh công cụ và bộ lọc -->
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <!-- Dòng 1: Bộ lọc tìm kiếm theo từ khóa, trạng thái, phòng ban, mentor -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <TextBlock Text="Tìm kiếm:" VerticalAlignment="Center" Margin="0,0,6,0" />
+                <TextBox x:Name="txtSearch" Width="150" Margin="0,0,12,0" TextChanged="Search_TextChanged" />
+
+                <TextBlock Text="Trạng thái:" VerticalAlignment="Center" Margin="0,0,6,0" />
+                <ComboBox x:Name="cboStatus" Width="140" SelectionChanged="Status_SelectionChanged" Margin="0,0,12,0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumText}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Phòng ban:" VerticalAlignment="Center" Margin="0,0,6,0" />
+                <ComboBox x:Name="cboDepartment" Width="150" DisplayMemberPath="Name" SelectedValuePath="Id"
+                          SelectionChanged="Department_SelectionChanged" Margin="0,0,12,0" />
+
+                <TextBlock x:Name="lblMentor" Text="Mentor:" VerticalAlignment="Center" Margin="0,0,6,0" />
+                <ComboBox x:Name="cboMentor" Width="150" DisplayMemberPath="FullName" SelectedValuePath="Id"
+                          SelectionChanged="Mentor_SelectionChanged" Margin="0,0,12,0" />
+            </StackPanel>
+
+            <!-- Dòng 2: Các nút hành động Thêm / Sửa / Xóa / Xuất CSV -->
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnAdd" Content="Thêm" Style="{StaticResource PrimaryButton}" Click="Add_Click" />
+                <Button x:Name="btnEdit" Content="Sửa" Click="Edit_Click" />
+                <Button x:Name="btnDelete" Content="Xóa" Style="{StaticResource DangerButton}" Click="Delete_Click" />
+                <Button x:Name="btnExportCsv" Content="Xuất CSV" Click="ExportCsv_Click" />
+            </StackPanel>
+        </StackPanel>
+
+        <!--
+            DataGrid hiển thị danh sách thực tập sinh:
+            Sử dụng DataTrigger trong RowStyle để đổi màu dòng dựa vào thuộc tính Status của dữ liệu:
+            - Dừng thực tập (Terminated): chữ màu mờ MutedBrush và in nghiêng (Italic)
+            - Hoàn thành (Completed): chữ màu xanh lá SuccessBrush
+        -->
+        <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <!-- DataTrigger theo dõi giá trị thuộc tính Status của đối tượng Intern đang liên kết -->
+                        <DataTrigger Binding="{Binding Status}" Value="{x:Static models:InternStatus.Terminated}">
+                            <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+                            <Setter Property="FontStyle" Value="Italic" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="{x:Static models:InternStatus.Completed}">
+                            <Setter Property="Foreground" Value="{StaticResource SuccessBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã" Binding="{Binding Code}" Width="80" />
+                <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}" Width="160" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="180" />
+                <DataGridTextColumn Header="Trường" Binding="{Binding University}" Width="140" />
+                <DataGridTextColumn Header="Phòng ban" Binding="{Binding Department.Name}" Width="140" />
+                <DataGridTextColumn Header="Mentor" Binding="{Binding Mentor.FullName}" Width="140" />
+                <DataGridTextColumn Header="Bắt đầu" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy}" Width="95" />
+                <DataGridTextColumn Header="Kết thúc" Binding="{Binding EndDate, StringFormat=dd/MM/yyyy}" Width="95" />
+                <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status, Converter={StaticResource EnumText}}" Width="110" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

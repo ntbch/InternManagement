@@ -1,0 +1,45 @@
+<UserControl x:Class="InternManagement.Wpf.Views.OrgTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="Sơ đồ tổ chức" Style="{StaticResource PageTitle}" />
+
+        <!-- Bố cục 2 cột: Cột trái là TreeView (~45%), Cột phải là bảng chi tiết Card (~55%) -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45*" />
+                <ColumnDefinition Width="14" />
+                <ColumnDefinition Width="55*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Cột trái: Cây sơ đồ tổ chức (Phòng ban -> Mentor -> Thực tập sinh) -->
+            <Border Grid.Column="0" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                    Background="White" CornerRadius="4" Padding="6">
+                <TreeView x:Name="treeOrg" SelectedItemChanged="TreeOrg_SelectedItemChanged" BorderThickness="0" />
+            </Border>
+
+            <!-- Cột phải: Khung hiển thị thông tin chi tiết của đối tượng đang chọn (Style Card) -->
+            <Border Grid.Column="2" Style="{StaticResource Card}" VerticalAlignment="Top">
+                <StackPanel x:Name="panelDetail">
+                    <TextBlock x:Name="txtDetailTitle" Text="Thông tin chi tiết" FontSize="16" FontWeight="SemiBold"
+                               Foreground="{StaticResource PrimaryDarkBrush}" Margin="0,0,0,12" />
+
+                    <!-- Hướng dẫn khi chưa chọn mục nào -->
+                    <TextBlock x:Name="txtPlaceholder"
+                               Text="Chọn một phòng ban, mentor hoặc thực tập sinh trên sơ đồ cây để xem thông tin chi tiết."
+                               Foreground="{StaticResource MutedBrush}" FontStyle="Italic" TextWrapping="Wrap" />
+
+                    <!-- Các dòng thông tin cụ thể (hiện khi có đối tượng được chọn) -->
+                    <StackPanel x:Name="panelContent" Visibility="Collapsed">
+                        <TextBlock x:Name="txtLine1" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,0,0,8" />
+                        <TextBlock x:Name="txtLine2" TextWrapping="Wrap" Margin="0,0,0,6" />
+                        <TextBlock x:Name="txtLine3" TextWrapping="Wrap" Margin="0,0,0,6" />
+                        <TextBlock x:Name="txtLine4" TextWrapping="Wrap" Margin="0,0,0,6" />
+                        <TextBlock x:Name="txtLine5" TextWrapping="Wrap" Margin="0,0,0,6" />
+                        <TextBlock x:Name="txtLine6" TextWrapping="Wrap" Margin="0,0,0,6" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

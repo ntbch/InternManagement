@@ -1,0 +1,33 @@
+<Window x:Class="InternManagement.Wpf.Views.MentorEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Mentor" Width="440" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
+    <!-- DataContext là đối tượng Mentor; Binding hai chiều (TwoWay) tự động cập nhật dữ liệu -->
+    <StackPanel Margin="20">
+        <TextBlock Text="Họ tên *" Style="{StaticResource FieldLabel}" />
+        <TextBox x:Name="txtFullName" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Text="Email *" Style="{StaticResource FieldLabel}" />
+        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Text="Điện thoại" Style="{StaticResource FieldLabel}" />
+        <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Text="Chức vụ" Style="{StaticResource FieldLabel}" />
+        <TextBox Text="{Binding Position, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Text="Phòng ban *" Style="{StaticResource FieldLabel}" />
+        <ComboBox x:Name="cboDepartment" DisplayMemberPath="Name" SelectedValuePath="Id"
+                  SelectedValue="{Binding DepartmentId}" />
+
+        <!-- Ghi chú tài khoản chỉ hiển thị khi thêm mới -->
+        <TextBlock x:Name="txtAccountNote" Text="Tài khoản đăng nhập: email, mật khẩu mặc định 123456"
+                   Foreground="{StaticResource MutedBrush}" FontStyle="Italic" Margin="0,12,0,0" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="Lưu" Style="{StaticResource PrimaryButton}" IsDefault="True" Click="Save_Click" />
+            <Button Content="Hủy" IsCancel="True" Margin="0" />
+        </StackPanel>
+    </StackPanel>
+</Window>

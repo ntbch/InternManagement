@@ -1,0 +1,33 @@
+<UserControl x:Class="InternManagement.Wpf.Views.MentorsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="Quản lý mentor" Style="{StaticResource PageTitle}" />
+
+        <!-- Thanh công cụ: tìm kiếm từ khóa, lọc theo phòng ban và các nút Thêm / Sửa / Xóa -->
+        <StackPanel DockPanel.Dock="Top" Style="{StaticResource ActionBar}">
+            <TextBlock Text="Tìm kiếm:" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <TextBox x:Name="txtSearch" Width="200" Margin="0,0,16,0" TextChanged="Search_TextChanged" />
+
+            <TextBlock Text="Phòng ban:" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <ComboBox x:Name="cboDepartment" Width="180" DisplayMemberPath="Name" SelectedValuePath="Id"
+                      SelectionChanged="Department_SelectionChanged" Margin="0,0,16,0" />
+
+            <Button Content="Thêm" Style="{StaticResource PrimaryButton}" Click="Add_Click" />
+            <Button x:Name="btnEdit" Content="Sửa" Click="Edit_Click" />
+            <Button x:Name="btnDelete" Content="Xóa" Style="{StaticResource DangerButton}" Click="Delete_Click" />
+        </StackPanel>
+
+        <!-- Databinding: mỗi cột liên kết với một thuộc tính của đối tượng Mentor -->
+        <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}" Width="*" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="180" />
+                <DataGridTextColumn Header="Điện thoại" Binding="{Binding Phone}" Width="120" />
+                <DataGridTextColumn Header="Chức vụ" Binding="{Binding Position}" Width="140" />
+                <DataGridTextColumn Header="Phòng ban" Binding="{Binding Department.Name}" Width="160" />
+                <DataGridTextColumn Header="Số TTS" Binding="{Binding Interns.Count}" Width="90" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>
