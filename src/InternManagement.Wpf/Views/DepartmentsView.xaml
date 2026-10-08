@@ -1,0 +1,23 @@
+<UserControl x:Class="InternManagement.Wpf.Views.DepartmentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="Quản lý phòng ban" Style="{StaticResource PageTitle}" />
+
+        <StackPanel DockPanel.Dock="Top" Style="{StaticResource ActionBar}">
+            <Button Content="Thêm" Style="{StaticResource PrimaryButton}" Click="Add_Click" />
+            <Button x:Name="btnEdit" Content="Sửa" Click="Edit_Click" />
+            <Button x:Name="btnDelete" Content="Xóa" Style="{StaticResource DangerButton}" Click="Delete_Click" />
+        </StackPanel>
+
+        <!-- Databinding: mỗi cột hiển thị một thuộc tính của đối tượng Department -->
+        <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tên phòng ban" Binding="{Binding Name}" Width="220" />
+                <DataGridTextColumn Header="Mô tả" Binding="{Binding Description}" Width="*" />
+                <DataGridTextColumn Header="Số mentor" Binding="{Binding Mentors.Count}" Width="100" />
+                <DataGridTextColumn Header="Số thực tập sinh" Binding="{Binding Interns.Count}" Width="130" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

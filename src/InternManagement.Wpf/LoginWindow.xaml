@@ -1,0 +1,37 @@
+<Window x:Class="InternManagement.Wpf.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Đăng nhập - Quản lý thực tập sinh"
+        Width="420" SizeToContent="Height"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=txtUsername}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Phần đầu màu xanh -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="24,20">
+            <StackPanel>
+                <TextBlock Text="HỆ THỐNG QUẢN LÝ" Foreground="White" FontSize="14" Opacity="0.85" />
+                <TextBlock Text="Thực tập sinh" Foreground="White" FontSize="26" FontWeight="Bold" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="24,12,24,24">
+            <TextBlock Text="Tên đăng nhập" Style="{StaticResource FieldLabel}" />
+            <TextBox x:Name="txtUsername" />
+
+            <TextBlock Text="Mật khẩu" Style="{StaticResource FieldLabel}" />
+            <PasswordBox x:Name="txtPassword" />
+
+            <Button Content="Đăng nhập" Style="{StaticResource PrimaryButton}" IsDefault="True"
+                    Margin="0,18,0,0" Padding="0,8" Click="Login_Click" />
+
+            <TextBlock Margin="0,14,0,0" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" FontSize="11">
+                Tài khoản mẫu: admin / admin123 · an@congty.vn / 123456 · TTS001 / 123456
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

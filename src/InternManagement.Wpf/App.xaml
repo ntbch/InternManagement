@@ -1,0 +1,136 @@
+<Application x:Class="InternManagement.Wpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:InternManagement.Wpf.Converters"
+             ShutdownMode="OnExplicitShutdown">
+    <!--
+        Tài nguyên dùng chung (Resources): màu sắc, Style cho các điều khiển, Converter.
+        Mọi cửa sổ đều tự áp dụng các Style không có x:Key (implicit style).
+    -->
+    <Application.Resources>
+        <!-- Bảng màu -->
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#1E6FD9" />
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#1557AD" />
+        <SolidColorBrush x:Key="DangerBrush" Color="#D93838" />
+        <SolidColorBrush x:Key="SuccessBrush" Color="#2E9E5B" />
+        <SolidColorBrush x:Key="WarningBrush" Color="#E39B12" />
+        <SolidColorBrush x:Key="MutedBrush" Color="#6B7280" />
+        <SolidColorBrush x:Key="BorderBrush" Color="#D1D5DB" />
+        <SolidColorBrush x:Key="PageBackgroundBrush" Color="#F5F7FA" />
+        <SolidColorBrush x:Key="OverdueRowBrush" Color="#FDE2E2" />
+
+        <conv:EnumTextConverter x:Key="EnumText" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+
+        <!-- Tiêu đề trang -->
+        <Style x:Key="PageTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource PrimaryDarkBrush}" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+
+        <!-- Nhãn trước ô nhập trong form -->
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,8,0,3" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#374151" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="6,4" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Style.Triggers>
+                <!-- Trigger: viền xanh khi đang nhập -->
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Padding" Value="6,4" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Padding" Value="6,4" />
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Padding" Value="4,3" />
+        </Style>
+
+        <!-- Nút mặc định -->
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="14,6" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <!-- Nút chính (Lưu, Đăng nhập, Thêm) -->
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryDarkBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Nút nguy hiểm (Xóa) -->
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource DangerBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource DangerBrush}" />
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Bảng dữ liệu -->
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="CanUserAddRows" Value="False" />
+            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="GridLinesVisibility" Value="Horizontal" />
+            <Setter Property="HorizontalGridLinesBrush" Value="#E5E7EB" />
+            <Setter Property="AlternatingRowBackground" Value="#F9FAFB" />
+            <Setter Property="RowHeight" Value="30" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#EEF2F7" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="8,6" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+        </Style>
+
+        <!-- Thanh công cụ phía trên mỗi danh sách -->
+        <Style x:Key="ActionBar" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+
+        <!-- Thẻ số liệu trên Dashboard -->
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="Margin" Value="0,0,12,12" />
+        </Style>
+    </Application.Resources>
+</Application>
