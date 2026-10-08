@@ -1,0 +1,100 @@
+<Window x:Class="InternManagement.Wpf.Views.EvaluationEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Đánh giá thực tập sinh" Width="460" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
+    <!--
+        DataContext là đối tượng Evaluation.
+        Dùng Slider cho các thang điểm 0-10 với TickFrequency=0.5 giúp tránh hoàn toàn
+        lỗi dấu phẩy/chấm thập phân (decimal-separator) khi chạy trên môi trường vi-VN.
+    -->
+    <StackPanel Margin="20">
+        <!-- Thực tập sinh -->
+        <TextBlock Text="Thực tập sinh *" Style="{StaticResource FieldLabel}" />
+        <ComboBox x:Name="cboIntern"
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding InternId, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Code}" FontWeight="SemiBold" Margin="0,0,6,0" />
+                        <TextBlock Text="-" Margin="0,0,6,0" />
+                        <TextBlock Text="{Binding FullName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <!-- Ngày đánh giá -->
+        <TextBlock Text="Ngày đánh giá *" Style="{StaticResource FieldLabel}" />
+        <DatePicker SelectedDate="{Binding EvaluationDate, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!-- Điểm thái độ -->
+        <TextBlock Text="Điểm thái độ (0 - 10) *" Style="{StaticResource FieldLabel}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Slider x:Name="sldAttitude" Grid.Column="0"
+                    Minimum="0" Maximum="10" TickFrequency="0.5" IsSnapToTickEnabled="True"
+                    VerticalAlignment="Center"
+                    Value="{Binding AttitudeScore, UpdateSourceTrigger=PropertyChanged}"
+                    ValueChanged="ScoreSlider_ValueChanged" />
+            <TextBlock Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="{Binding ElementName=sldAttitude, Path=Value, StringFormat={}{0:0.0}}" />
+        </Grid>
+
+        <!-- Điểm kỹ năng -->
+        <TextBlock Text="Điểm kỹ năng (0 - 10) *" Style="{StaticResource FieldLabel}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Slider x:Name="sldSkill" Grid.Column="0"
+                    Minimum="0" Maximum="10" TickFrequency="0.5" IsSnapToTickEnabled="True"
+                    VerticalAlignment="Center"
+                    Value="{Binding SkillScore, UpdateSourceTrigger=PropertyChanged}"
+                    ValueChanged="ScoreSlider_ValueChanged" />
+            <TextBlock Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="{Binding ElementName=sldSkill, Path=Value, StringFormat={}{0:0.0}}" />
+        </Grid>
+
+        <!-- Điểm làm việc nhóm -->
+        <TextBlock Text="Điểm làm việc nhóm (0 - 10) *" Style="{StaticResource FieldLabel}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Slider x:Name="sldTeamwork" Grid.Column="0"
+                    Minimum="0" Maximum="10" TickFrequency="0.5" IsSnapToTickEnabled="True"
+                    VerticalAlignment="Center"
+                    Value="{Binding TeamworkScore, UpdateSourceTrigger=PropertyChanged}"
+                    ValueChanged="ScoreSlider_ValueChanged" />
+            <TextBlock Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="{Binding ElementName=sldTeamwork, Path=Value, StringFormat={}{0:0.0}}" />
+        </Grid>
+
+        <!-- Hiển thị trực tiếp Điểm trung bình và Xếp loại -->
+        <Border Background="#F3F4F6" CornerRadius="4" Padding="12,8" Margin="0,12,0,0">
+            <TextBlock x:Name="txtAverageRank" FontWeight="SemiBold"
+                       Foreground="{StaticResource PrimaryDarkBrush}" />
+        </Border>
+
+        <!-- Nhận xét -->
+        <TextBlock Text="Nhận xét" Style="{StaticResource FieldLabel}" />
+        <TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
+                 Height="70" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+
+        <!-- Nút thao tác -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="Lưu" Style="{StaticResource PrimaryButton}" IsDefault="True" Click="Save_Click" />
+            <Button Content="Hủy" IsCancel="True" Margin="0" />
+        </StackPanel>
+    </StackPanel>
+</Window>

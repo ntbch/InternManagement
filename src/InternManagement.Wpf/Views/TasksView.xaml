@@ -1,0 +1,86 @@
+<UserControl x:Class="InternManagement.Wpf.Views.TasksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:InternManagement.Core.Models;assembly=InternManagement.Core">
+    <!-- Bố cục dạng DockPanel: tiêu đề và thanh công cụ ở trên, chú thích ở dưới, bảng dữ liệu ở giữa -->
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="Giao việc" Style="{StaticResource PageTitle}" />
+
+        <!-- Thanh công cụ và các bộ lọc tìm kiếm -->
+        <StackPanel DockPanel.Dock="Top" Style="{StaticResource ActionBar}">
+            <TextBlock Text="Thực tập sinh:" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <ComboBox x:Name="cboInternFilter" Width="220" Margin="0,0,10,0"
+                      SelectionChanged="Filter_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Hiển thị "Mã - Họ tên"; mục "Tất cả" (Id = 0) chỉ hiện tên -->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Code}" />
+                            <TextBlock Text=" - ">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Id}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding FullName}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Text="Trạng thái:" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <ComboBox x:Name="cboStatusFilter" Width="160" Margin="0,0,10,0"
+                      SelectionChanged="Filter_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <!-- EnumText converter chuyển giá trị enum sang tiếng Việt -->
+                        <TextBlock Text="{Binding Converter={StaticResource EnumText}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!-- Minh họa điều khiển CheckBox: lọc các công việc quá hạn trên bộ nhớ -->
+            <CheckBox x:Name="chkOverdue" Content="Chỉ hiện việc quá hạn" VerticalAlignment="Center"
+                      Margin="0,0,14,0" Checked="Overdue_Changed" Unchecked="Overdue_Changed" />
+
+            <Button Content="Thêm" Style="{StaticResource PrimaryButton}" Click="Add_Click" />
+            <Button x:Name="btnEdit" Content="Sửa" Click="Edit_Click" />
+            <Button x:Name="btnDelete" Content="Xóa" Style="{StaticResource DangerButton}" Click="Delete_Click" />
+        </StackPanel>
+
+        <!-- Chú thích dòng màu đỏ quá hạn ở góc dưới bảng -->
+        <TextBlock DockPanel.Dock="Bottom" Text="* Dòng màu đỏ: công việc quá hạn"
+                   Foreground="{StaticResource DangerBrush}" Margin="0,8,0,0" FontStyle="Italic" />
+
+        <!-- Bảng danh sách công việc -->
+        <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <!-- DataTrigger: đổi màu nền dòng khi công việc quá hạn -->
+                        <DataTrigger Binding="{Binding IsOverdue}" Value="True">
+                            <Setter Property="Background" Value="{StaticResource OverdueRowBrush}" />
+                            <Setter Property="ToolTip" Value="Quá hạn" />
+                        </DataTrigger>
+                        <!-- DataTrigger: đổi màu chữ xanh lá khi đã hoàn thành -->
+                        <DataTrigger Binding="{Binding Status}" Value="{x:Static models:TaskItemStatus.Done}">
+                            <Setter Property="Foreground" Value="{StaticResource SuccessBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tiêu đề" Binding="{Binding Title}" Width="*" />
+                <DataGridTextColumn Header="Thực tập sinh" Binding="{Binding Intern.FullName}" Width="160" />
+                <DataGridTextColumn Header="Ngày giao" Binding="{Binding AssignedDate, StringFormat=dd/MM/yyyy}" Width="110" />
+                <DataGridTextColumn Header="Hạn hoàn thành" Binding="{Binding DueDate, StringFormat=dd/MM/yyyy}" Width="120" />
+                <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status, Converter={StaticResource EnumText}}" Width="120" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>
