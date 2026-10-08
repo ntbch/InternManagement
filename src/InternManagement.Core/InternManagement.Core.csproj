@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Thư viện nghiệp vụ dùng chung (Models, Data, Services).
+    netstandard2.0 để chạy được trên .NET Framework 4.7.2 (ứng dụng WPF)
+    và trên .NET hiện đại (project test).
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>InternManagement.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- EF Core 3.1 là phiên bản EF Core cuối cùng hỗ trợ .NET Framework -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.32" />
+    <!-- Nâng thư viện SQLite native lên bản đã vá lỗ hổng (bản mặc định của EF Core 3.1 đã cũ) -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.12" />
+  </ItemGroup>
+
+</Project>

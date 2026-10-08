@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>InternManagement.Wpf</RootNamespace>
+    <AssemblyTitle>Hệ thống quản lý thực tập sinh</AssemblyTitle>
+    <!-- Cho phép build (không chạy) trên Linux/macOS -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InternManagement.Core\InternManagement.Core.csproj" />
+  </ItemGroup>
+
+</Project>
