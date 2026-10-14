@@ -5,7 +5,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Core.Helpers
 {
-    /// <summary>Xuất danh sách thực tập sinh ra file CSV (mở được bằng Excel).</summary>
     public static class CsvExporter
     {
         public static void ExportInterns(IEnumerable<Intern> interns, string filePath)

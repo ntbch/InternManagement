@@ -5,10 +5,6 @@ using InternManagement.Wpf.Views;
 
 namespace InternManagement.Wpf
 {
-    /// <summary>
-    /// Màn hình chính: Menu + ToolBar ở trên, nội dung ở giữa, StatusBar ở dưới.
-    /// Mỗi chức năng là một UserControl được đặt vào pageHost.
-    /// </summary>
     public partial class MainWindow : Window
     {
         private bool _loggingOut;
@@ -30,7 +26,6 @@ namespace InternManagement.Wpf
                 Navigate(new MyTasksView(), "Thực tập của tôi");
         }
 
-        /// <summary>Ẩn các chức năng không thuộc quyền của tài khoản đang đăng nhập.</summary>
         private void ApplyPermissions()
         {
             bool admin = Session.IsAdmin;
@@ -125,7 +120,6 @@ namespace InternManagement.Wpf
             Close();
         }
 
-        /// <summary>Đóng cửa sổ chính (không phải đăng xuất) thì thoát ứng dụng.</summary>
         private void Window_Closed(object sender, System.EventArgs e)
         {
             if (!_loggingOut)

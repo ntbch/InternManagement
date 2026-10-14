@@ -6,10 +6,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Mẫu chung cho các màn hình danh sách:
-    /// LoadData() lấy dữ liệu từ service gán vào DataGrid; Thêm/Sửa mở cửa sổ con; Xóa hỏi xác nhận.
-    /// </summary>
     public partial class DepartmentsView : UserControl
     {
         public DepartmentsView()
@@ -47,7 +43,6 @@ namespace InternManagement.Wpf.Views
                 LoadData();
         }
 
-        /// <summary>Nhấp đúp vào một dòng để sửa (bỏ qua tiêu đề cột, thanh cuộn, vùng trống).</summary>
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ItemsControl.ContainerFromElement(grid, (DependencyObject)e.OriginalSource) is DataGridRow)

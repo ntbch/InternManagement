@@ -6,7 +6,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Converters
 {
-    /// <summary>Hiển thị enum (trạng thái, vai trò) bằng chữ tiếng Việt trong Binding.</summary>
     public class EnumTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

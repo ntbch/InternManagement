@@ -7,10 +7,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Màn hình quản lý danh sách Mentor dành cho Quản trị viên:
-    /// Cho phép tìm kiếm theo từ khóa (họ tên, email), lọc theo phòng ban, Thêm, Sửa, Xóa.
-    /// </summary>
     public partial class MentorsView : UserControl
     {
         public MentorsView()
@@ -77,7 +73,6 @@ namespace InternManagement.Wpf.Views
             }
         }
 
-        /// <summary>Nhấp đúp vào một dòng để sửa (bỏ qua tiêu đề cột, thanh cuộn, vùng trống).</summary>
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ItemsControl.ContainerFromElement(grid, (DependencyObject)e.OriginalSource) is DataGridRow)

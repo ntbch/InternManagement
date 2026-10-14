@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace InternManagement.Core.Models
 {
-    /// <summary>Thực tập sinh.</summary>
     public class Intern : Person
     {
         /// <summary>Mã thực tập sinh, ví dụ TTS001. Cũng là tên đăng nhập.</summary>

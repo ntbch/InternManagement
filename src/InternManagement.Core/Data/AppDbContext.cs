@@ -3,10 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternManagement.Core.Data
 {
-    /// <summary>
-    /// Cầu nối giữa các lớp Model và CSDL SQLite (Entity Framework Core).
-    /// Mỗi DbSet tương ứng với một bảng.
-    /// </summary>
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -20,7 +16,6 @@ namespace InternManagement.Core.Data
         public DbSet<TaskItem> Tasks { get; set; }
         public DbSet<Evaluation> Evaluations { get; set; }
 
-        /// <summary>Tạo cấu hình kết nối tới file SQLite.</summary>
         public static DbContextOptions<AppDbContext> CreateOptions(string databaseFile)
         {
             return new DbContextOptionsBuilder<AppDbContext>()
@@ -28,7 +23,6 @@ namespace InternManagement.Core.Data
                 .Options;
         }
 
-        /// <summary>Cấu hình bảng: độ dài, bắt buộc, duy nhất, khóa ngoại.</summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(e =>

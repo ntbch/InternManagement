@@ -24,7 +24,9 @@
   <!-- Ensure native e_sqlite3.dll is copied into the app output for the chosen platform -->
   <Target Name="CopySqliteNative" AfterTargets="Build">
     <PropertyGroup>
-      <SqlitePackagePath>$(USERPROFILE)\.nuget\packages\sqlitepclraw.lib.e_sqlite3\2.1.12\runtimes</SqlitePackagePath>
+      <SqlitePackageRoot Condition="'$(NuGetPackageRoot)' != ''">$(NuGetPackageRoot)</SqlitePackageRoot>
+      <SqlitePackageRoot Condition="'$(SqlitePackageRoot)' == ''">$(USERPROFILE)\.nuget\packages\</SqlitePackageRoot>
+      <SqlitePackagePath>$(SqlitePackageRoot)sqlitepclraw.lib.e_sqlite3\2.1.12\runtimes</SqlitePackagePath>
       <OutRuntimes>$(OutputPath)runtimes</OutRuntimes>
     </PropertyGroup>
     <!-- Copy x64 native DLL -->

@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternManagement.Core.Services
 {
-    /// <summary>Giao việc cho thực tập sinh và cập nhật tiến độ.</summary>
     public class TaskService
     {
         private readonly Func<AppDbContext> _createDb;
@@ -63,7 +62,6 @@ namespace InternManagement.Core.Services
             }
         }
 
-        /// <summary>Thực tập sinh cập nhật trạng thái công việc của chính mình.</summary>
         public void UpdateStatus(int taskId, TaskItemStatus status, int internId)
         {
             using (AppDbContext db = _createDb())

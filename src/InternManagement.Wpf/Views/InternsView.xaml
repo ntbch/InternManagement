@@ -3,12 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:models="clr-namespace:InternManagement.Core.Models;assembly=InternManagement.Core">
     <DockPanel>
-        <!-- Tiêu đề trang: Quản lý thực tập sinh (Admin) hoặc Thực tập sinh của tôi (Mentor) -->
         <TextBlock x:Name="txtTitle" DockPanel.Dock="Top" Text="Quản lý thực tập sinh" Style="{StaticResource PageTitle}" />
 
-        <!-- Khu vực thanh công cụ và bộ lọc -->
         <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
-            <!-- Dòng 1: Bộ lọc tìm kiếm theo từ khóa, trạng thái, phòng ban, mentor -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                 <TextBlock Text="Tìm kiếm:" VerticalAlignment="Center" Margin="0,0,6,0" />
                 <TextBox x:Name="txtSearch" Width="150" Margin="0,0,12,0" TextChanged="Search_TextChanged" />
@@ -31,7 +28,6 @@
                           SelectionChanged="Mentor_SelectionChanged" Margin="0,0,12,0" />
             </StackPanel>
 
-            <!-- Dòng 2: Các nút hành động Thêm / Sửa / Xóa / Xuất CSV -->
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnAdd" Content="Thêm" Style="{StaticResource PrimaryButton}" Click="Add_Click" />
                 <Button x:Name="btnEdit" Content="Sửa" Click="Edit_Click" />
@@ -40,17 +36,10 @@
             </StackPanel>
         </StackPanel>
 
-        <!--
-            DataGrid hiển thị danh sách thực tập sinh:
-            Sử dụng DataTrigger trong RowStyle để đổi màu dòng dựa vào thuộc tính Status của dữ liệu:
-            - Dừng thực tập (Terminated): chữ màu mờ MutedBrush và in nghiêng (Italic)
-            - Hoàn thành (Completed): chữ màu xanh lá SuccessBrush
-        -->
         <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <!-- DataTrigger theo dõi giá trị thuộc tính Status của đối tượng Intern đang liên kết -->
                         <DataTrigger Binding="{Binding Status}" Value="{x:Static models:InternStatus.Terminated}">
                             <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
                             <Setter Property="FontStyle" Value="Italic" />

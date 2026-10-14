@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternManagement.Core.Services
 {
-    /// <summary>Phiếu đánh giá thực tập sinh. Chỉ mentor đang hướng dẫn mới được đánh giá.</summary>
     public class EvaluationService
     {
         private readonly Func<AppDbContext> _createDb;

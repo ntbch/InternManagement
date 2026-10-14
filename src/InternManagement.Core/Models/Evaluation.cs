@@ -2,7 +2,6 @@ using System;
 
 namespace InternManagement.Core.Models
 {
-    /// <summary>Phiếu đánh giá của mentor cho thực tập sinh (thang điểm 0-10).</summary>
     public class Evaluation
     {
         public int Id { get; set; }

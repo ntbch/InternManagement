@@ -3,7 +3,6 @@ using InternManagement.Core.Exceptions;
 
 namespace InternManagement.Core.Helpers
 {
-    /// <summary>Các hàm kiểm tra dữ liệu nhập dùng chung. Sai thì ném ValidationException.</summary>
     public static class Validator
     {
         private static readonly Regex EmailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
@@ -24,7 +23,6 @@ namespace InternManagement.Core.Helpers
             return email.ToLowerInvariant();
         }
 
-        /// <summary>Số điện thoại không bắt buộc; nếu nhập thì phải gồm 10 chữ số, bắt đầu bằng 0.</summary>
         public static string OptionalPhone(string value)
         {
             if (string.IsNullOrWhiteSpace(value))

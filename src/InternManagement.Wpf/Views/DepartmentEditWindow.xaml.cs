@@ -4,10 +4,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Mẫu chung cho cửa sổ Thêm/Sửa: truyền null để thêm mới, truyền đối tượng để sửa.
-    /// Lưu thành công thì DialogResult = true; lỗi nhập liệu thì hiện MessageBox và giữ cửa sổ.
-    /// </summary>
     public partial class DepartmentEditWindow : Window
     {
         private readonly Department _department;

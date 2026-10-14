@@ -6,7 +6,6 @@ using InternManagement.Core.Models;
 namespace InternManagement.Core.Data
 {
     /// <summary>
-    /// Tạo CSDL (nếu chưa có) và thêm dữ liệu mẫu để demo.
     /// Tài khoản mẫu: admin/admin123; mentor đăng nhập bằng email; thực tập sinh bằng mã TTS; mật khẩu mặc định 123456.
     /// </summary>
     public static class DbSeeder
@@ -18,7 +17,7 @@ namespace InternManagement.Core.Data
             db.Database.EnsureCreated();
 
             if (db.Users.Any())
-                return; // Đã có dữ liệu
+                return;
 
             DateTime today = DateTime.Today;
 

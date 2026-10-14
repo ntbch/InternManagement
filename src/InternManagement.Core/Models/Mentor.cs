@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 namespace InternManagement.Core.Models
 {
-    /// <summary>Người hướng dẫn thực tập.</summary>
     public class Mentor : Person
     {
         public string Position { get; set; }

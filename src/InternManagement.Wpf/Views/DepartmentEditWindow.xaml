@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Phòng ban" Width="420" SizeToContent="Height"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
-    <!-- DataContext là một đối tượng Department; các ô nhập Binding hai chiều vào thuộc tính của nó -->
     <StackPanel Margin="20">
         <TextBlock Text="Tên phòng ban *" Style="{StaticResource FieldLabel}" />
         <TextBox x:Name="txtName" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />

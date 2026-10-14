@@ -9,10 +9,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Màn hình Giao việc (dành cho Admin và Mentor).
-    /// Hỗ trợ lọc theo thực tập sinh, trạng thái, công việc quá hạn; thêm/sửa/xóa công việc.
-    /// </summary>
     public partial class TasksView : UserControl
     {
         private List<Intern> _interns;
@@ -31,11 +27,6 @@ namespace InternManagement.Wpf.Views
             get { return grid.SelectedItem as TaskItem; }
         }
 
-        /// <summary>
-        /// Khởi tạo dữ liệu cho các ComboBox bộ lọc:
-        /// - Thực tập sinh: Admin thấy tất cả, Mentor chỉ thấy TTS do mình hướng dẫn.
-        /// - Trạng thái: lấy từ enum TaskItemStatus kết hợp mục tất cả.
-        /// </summary>
         private void InitFilters()
         {
             _interns = Session.IsMentor
@@ -58,9 +49,6 @@ namespace InternManagement.Wpf.Views
             cboStatusFilter.SelectedIndex = 0;
         }
 
-        /// <summary>
-        /// Nạp danh sách công việc từ service theo các điều kiện lọc đang chọn.
-        /// </summary>
         private void LoadData()
         {
             if (!_isLoaded)
@@ -78,8 +66,6 @@ namespace InternManagement.Wpf.Views
 
             List<TaskItem> tasks = AppServices.Tasks.GetTasks(internId, mentorId, status);
 
-            // IsOverdue là thuộc tính tính toán, không lưu trong CSDL nên lọc trên bộ nhớ bằng LINQ
-            // Đây là minh họa điều khiển CheckBox (mục 3.6.4 đề cương môn học)
             if (chkOverdue != null && chkOverdue.IsChecked == true)
             {
                 tasks = tasks.Where(t => t.IsOverdue).ToList();
@@ -121,7 +107,6 @@ namespace InternManagement.Wpf.Views
                 LoadData();
         }
 
-        /// <summary>Nhấp đúp vào một dòng để sửa (bỏ qua tiêu đề cột, thanh cuộn, vùng trống).</summary>
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ItemsControl.ContainerFromElement(grid, (DependencyObject)e.OriginalSource) is DataGridRow)

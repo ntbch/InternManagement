@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,11 +12,6 @@ using Microsoft.Win32;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Màn hình danh sách Thực tập sinh:
-    /// - Quản trị viên (Admin): xem tất cả, lọc đa tiêu chí, Thêm / Sửa / Xóa / Xuất CSV.
-    /// - Người hướng dẫn (Mentor): chỉ xem thực tập sinh mình hướng dẫn, xem chi tiết qua đa hình GetDisplayInfo(), Xuất CSV.
-    /// </summary>
     public partial class InternsView : UserControl
     {
         private bool _isInitializing = true;
@@ -35,7 +31,6 @@ namespace InternManagement.Wpf.Views
 
         private void InitializeView()
         {
-            // Nạp danh sách trạng thái vào ComboBox (mục đầu tiên là chuỗi hiển thị tất cả)
             var statusList = new List<object>();
             statusList.Add("-- Tất cả trạng thái --");
             foreach (InternStatus s in Enum.GetValues(typeof(InternStatus)))
@@ -45,14 +40,12 @@ namespace InternManagement.Wpf.Views
             cboStatus.ItemsSource = statusList;
             cboStatus.SelectedIndex = 0;
 
-            // Nạp danh sách phòng ban
             var deptList = new List<Department>();
             deptList.Add(new Department { Id = 0, Name = "-- Tất cả phòng ban --" });
             deptList.AddRange(AppServices.Departments.GetAll());
             cboDepartment.ItemsSource = deptList;
             cboDepartment.SelectedIndex = 0;
 
-            // Phân quyền hiển thị theo vai trò người đăng nhập
             if (Session.IsMentor)
             {
                 txtTitle.Text = "Thực tập sinh của tôi";
@@ -83,17 +76,7 @@ namespace InternManagement.Wpf.Views
             int currentSelectedId = cboMentor.SelectedValue is int ? (int)cboMentor.SelectedValue : 0;
             cboMentor.ItemsSource = mentorList;
 
-            // Giữ lại mentor đang chọn nếu vẫn nằm trong danh sách mới
-            bool found = false;
-            foreach (Mentor m in mentorList)
-            {
-                if (m.Id == currentSelectedId)
-                {
-                    found = true;
-                    break;
-                }
-            }
-            cboMentor.SelectedValue = found ? currentSelectedId : 0;
+            cboMentor.SelectedValue = mentorList.Any(m => m.Id == currentSelectedId) ? currentSelectedId : 0;
         }
 
         private void LoadData()
@@ -115,7 +98,6 @@ namespace InternManagement.Wpf.Views
             int? mentorId;
             if (Session.IsMentor)
             {
-                // Mentor chỉ được xem các thực tập sinh do chính mình hướng dẫn
                 mentorId = Session.MentorId;
             }
             else
@@ -168,13 +150,11 @@ namespace InternManagement.Wpf.Views
 
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            // Chỉ xử lý khi nhấp đúp vào một dòng (bỏ qua tiêu đề cột, thanh cuộn, vùng trống)
             if (!(ItemsControl.ContainerFromElement(grid, (DependencyObject)e.OriginalSource) is DataGridRow) || Selected == null)
                 return;
 
             if (Session.IsMentor)
             {
-                // Gọi phương thức ảo GetDisplayInfo() - minh họa tính ĐA HÌNH trong lập trình hướng đối tượng
                 string info = Selected.GetDisplayInfo()
                     + "\nTrường: " + (string.IsNullOrEmpty(Selected.University) ? "Chưa cập nhật" : Selected.University)
                     + "\nChuyên ngành: " + (string.IsNullOrEmpty(Selected.Major) ? "Chưa cập nhật" : Selected.Major)
@@ -185,7 +165,6 @@ namespace InternManagement.Wpf.Views
             }
             else
             {
-                // Admin nhấp đúp để mở cửa sổ chỉnh sửa
                 Edit_Click(sender, e);
             }
         }

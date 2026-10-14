@@ -1,9 +1,5 @@
 namespace InternManagement.Core.Models
 {
-    /// <summary>
-    /// Lớp cha trừu tượng cho Mentor và Intern (kế thừa).
-    /// Mỗi lớp con tự định nghĩa RoleName (đa hình).
-    /// </summary>
     public abstract class Person
     {
         public int Id { get; set; }

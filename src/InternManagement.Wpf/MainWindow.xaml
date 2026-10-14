@@ -6,7 +6,6 @@
         WindowStartupLocation="CenterScreen"
         Closed="Window_Closed">
     <DockPanel>
-        <!-- Thực đơn (Menu) -->
         <Menu DockPanel.Dock="Top" Padding="4,2">
             <MenuItem Header="_Hệ thống">
                 <MenuItem Header="Đổi mật khẩu" Click="ChangePassword_Click" />
@@ -32,21 +31,19 @@
             </MenuItem>
         </Menu>
 
-        <!-- Thanh công cụ (ToolBar) -->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button x:Name="tbDashboard" Content="📊 Tổng quan" Click="Dashboard_Click" />
-                <Button x:Name="tbInterns" Content="🎓 Thực tập sinh" Click="Interns_Click" />
-                <Button x:Name="tbTasks" Content="📝 Giao việc" Click="Tasks_Click" />
-                <Button x:Name="tbEvaluations" Content="⭐ Đánh giá" Click="Evaluations_Click" />
-                <Button x:Name="tbMyTasks" Content="📋 Thực tập của tôi" Click="MyTasks_Click" />
+                <Button x:Name="tbDashboard" Content="Tổng quan" Click="Dashboard_Click" />
+                <Button x:Name="tbInterns" Content="Thực tập sinh" Click="Interns_Click" />
+                <Button x:Name="tbTasks" Content="Giao việc" Click="Tasks_Click" />
+                <Button x:Name="tbEvaluations" Content="Đánh giá" Click="Evaluations_Click" />
+                <Button x:Name="tbMyTasks" Content="Thực tập của tôi" Click="MyTasks_Click" />
                 <Separator />
-                <Button Content="🔑 Đổi mật khẩu" Click="ChangePassword_Click" />
-                <Button Content="🚪 Đăng xuất" Click="Logout_Click" />
+                <Button Content="Đổi mật khẩu" Click="ChangePassword_Click" />
+                <Button Content="Đăng xuất" Click="Logout_Click" />
             </ToolBar>
         </ToolBarTray>
 
-        <!-- Thanh trạng thái -->
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <TextBlock x:Name="txtUser" />
@@ -57,7 +54,6 @@
             </StatusBarItem>
         </StatusBar>
 
-        <!-- Nội dung trang hiện tại (UserControl) được đặt vào đây -->
         <Border Background="{StaticResource PageBackgroundBrush}" Padding="20">
             <ContentControl x:Name="pageHost" />
         </Border>

@@ -2,7 +2,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Core.Helpers
 {
-    /// <summary>Chuyển giá trị enum sang chữ tiếng Việt để hiển thị.</summary>
     public static class StatusText
     {
         public static string Of(InternStatus status)

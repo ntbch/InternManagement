@@ -1,6 +1,5 @@
 namespace InternManagement.Core.Models
 {
-    /// <summary>Vai trò của tài khoản đăng nhập.</summary>
     public enum UserRole
     {
         Admin,
@@ -8,20 +7,18 @@ namespace InternManagement.Core.Models
         Intern
     }
 
-    /// <summary>Trạng thái thực tập.</summary>
     public enum InternStatus
     {
-        Pending,     // Chờ bắt đầu
-        Active,      // Đang thực tập
-        Completed,   // Hoàn thành
-        Terminated   // Dừng thực tập
+        Pending,
+        Active,
+        Completed,
+        Terminated
     }
 
-    /// <summary>Trạng thái công việc được giao.</summary>
     public enum TaskItemStatus
     {
-        Todo,        // Chưa làm
-        InProgress,  // Đang làm
-        Done         // Hoàn thành
+        Todo,
+        InProgress,
+        Done
     }
 }

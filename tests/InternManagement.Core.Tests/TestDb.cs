@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternManagement.Core.Tests;
 
-/// <summary>CSDL SQLite trong bộ nhớ, đã nạp dữ liệu mẫu. Mỗi test dùng một bản riêng.</summary>
 public sealed class TestDb : IDisposable
 {
     private readonly SqliteConnection _connection;

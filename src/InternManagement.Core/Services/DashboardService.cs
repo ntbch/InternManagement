@@ -7,14 +7,12 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Core.Services
 {
-    /// <summary>Một cột trong biểu đồ: nhãn + giá trị.</summary>
     public class ChartItem
     {
         public string Label { get; set; }
         public int Value { get; set; }
     }
 
-    /// <summary>Số liệu tổng hợp cho màn hình Dashboard.</summary>
     public class DashboardSummary
     {
         public int TotalInterns { get; set; }

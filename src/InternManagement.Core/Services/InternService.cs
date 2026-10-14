@@ -22,7 +22,6 @@ namespace InternManagement.Core.Services
             _createDb = createDb;
         }
 
-        /// <summary>Tìm kiếm + lọc. Tham số null nghĩa là không lọc theo tiêu chí đó.</summary>
         public List<Intern> Search(string keyword = null, InternStatus? status = null,
             int? departmentId = null, int? mentorId = null)
         {
@@ -63,7 +62,6 @@ namespace InternManagement.Core.Services
             }
         }
 
-        /// <summary>Sinh mã kế tiếp: TTS001, TTS002, ...</summary>
         public string GenerateNextCode()
         {
             using (AppDbContext db = _createDb())

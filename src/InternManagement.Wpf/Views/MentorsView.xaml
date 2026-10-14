@@ -4,7 +4,6 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Text="Quản lý mentor" Style="{StaticResource PageTitle}" />
 
-        <!-- Thanh công cụ: tìm kiếm từ khóa, lọc theo phòng ban và các nút Thêm / Sửa / Xóa -->
         <StackPanel DockPanel.Dock="Top" Style="{StaticResource ActionBar}">
             <TextBlock Text="Tìm kiếm:" VerticalAlignment="Center" Margin="0,0,6,0" />
             <TextBox x:Name="txtSearch" Width="200" Margin="0,0,16,0" TextChanged="Search_TextChanged" />
@@ -18,7 +17,6 @@
             <Button x:Name="btnDelete" Content="Xóa" Style="{StaticResource DangerButton}" Click="Delete_Click" />
         </StackPanel>
 
-        <!-- Databinding: mỗi cột liên kết với một thuộc tính của đối tượng Mentor -->
         <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}" Width="*" />

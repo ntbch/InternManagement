@@ -6,10 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternManagement.Wpf
 {
-    /// <summary>
-    /// Nơi giữ các service dùng chung cho toàn bộ giao diện.
-    /// Mỗi service mở một AppDbContext mới cho từng thao tác rồi đóng lại.
-    /// </summary>
     public static class AppServices
     {
         public static AuthService Auth { get; private set; }
@@ -20,7 +16,6 @@ namespace InternManagement.Wpf
         public static EvaluationService Evaluations { get; private set; }
         public static DashboardService Dashboard { get; private set; }
 
-        /// <summary>Tạo CSDL (file internship.db cạnh file .exe), nạp dữ liệu mẫu và khởi tạo service.</summary>
         public static void Initialize()
         {
             string dbFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "internship.db");

@@ -9,11 +9,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Màn hình dành cho thực tập sinh (Intern):
-    /// Xem thông tin cá nhân, theo dõi tiến độ hoàn thành công việc,
-    /// tự cập nhật trạng thái làm việc và xem kết quả đánh giá từ mentor.
-    /// </summary>
     public partial class MyTasksView : UserControl
     {
         public MyTasksView()
@@ -36,9 +31,6 @@ namespace InternManagement.Wpf.Views
             get { return gridTasks.SelectedItem as TaskItem; }
         }
 
-        /// <summary>
-        /// Nạp thông tin hồ sơ của thực tập sinh đang đăng nhập vào Card phía trên.
-        /// </summary>
         private void LoadProfile()
         {
             if (!CurrentInternId.HasValue)
@@ -56,9 +48,6 @@ namespace InternManagement.Wpf.Views
             lblStatus.Text = StatusText.Of(intern.Status);
         }
 
-        /// <summary>
-        /// Tải danh sách công việc, tính tiến độ hoàn thành và tải phiếu đánh giá.
-        /// </summary>
         private void LoadData()
         {
             if (!CurrentInternId.HasValue)
@@ -66,27 +55,21 @@ namespace InternManagement.Wpf.Views
 
             int internId = CurrentInternId.Value;
 
-            // Lấy danh sách công việc được giao cho thực tập sinh này
             List<TaskItem> tasks = AppServices.Tasks.GetTasks(internId: internId);
             gridTasks.ItemsSource = tasks;
 
-            // Tính tỷ lệ hoàn thành: số việc Done / tổng số việc
             int total = tasks.Count;
             int done = tasks.Count(t => t.Status == TaskItemStatus.Done);
             pbProgress.Maximum = total > 0 ? total : 1;
             pbProgress.Value = done;
             lblProgressText.Text = string.Format("{0}/{1} công việc hoàn thành", done, total);
 
-            // Lấy danh sách phiếu đánh giá của thực tập sinh này
             List<Evaluation> evals = AppServices.Evaluations.GetEvaluations(internId: internId);
             gridEvaluations.ItemsSource = evals;
 
             UpdateButtons();
         }
 
-        /// <summary>
-        /// Chỉ bật nút khi đã chọn công việc và công việc chưa ở trạng thái đó.
-        /// </summary>
         private void UpdateButtons()
         {
             TaskItem selected = SelectedTask;
@@ -101,22 +84,15 @@ namespace InternManagement.Wpf.Views
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            TaskItem selected = SelectedTask;
-            if (selected == null || !CurrentInternId.HasValue)
-                return;
-
-            try
-            {
-                AppServices.Tasks.UpdateStatus(selected.Id, TaskItemStatus.InProgress, CurrentInternId.Value);
-                LoadData();
-            }
-            catch (ValidationException ex)
-            {
-                MessageBox.Show(ex.Message, "Không thể cập nhật", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            UpdateSelectedTaskStatus(TaskItemStatus.InProgress);
         }
 
         private void Complete_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateSelectedTaskStatus(TaskItemStatus.Done);
+        }
+
+        private void UpdateSelectedTaskStatus(TaskItemStatus status)
         {
             TaskItem selected = SelectedTask;
             if (selected == null || !CurrentInternId.HasValue)
@@ -124,7 +100,7 @@ namespace InternManagement.Wpf.Views
 
             try
             {
-                AppServices.Tasks.UpdateStatus(selected.Id, TaskItemStatus.Done, CurrentInternId.Value);
+                AppServices.Tasks.UpdateStatus(selected.Id, status, CurrentInternId.Value);
                 LoadData();
             }
             catch (ValidationException ex)

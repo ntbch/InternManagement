@@ -10,7 +10,6 @@
             <Button x:Name="btnDelete" Content="Xóa" Style="{StaticResource DangerButton}" Click="Delete_Click" />
         </StackPanel>
 
-        <!-- Databinding: mỗi cột hiển thị một thuộc tính của đối tượng Department -->
         <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Tên phòng ban" Binding="{Binding Name}" Width="220" />

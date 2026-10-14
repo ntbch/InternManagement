@@ -1,6 +1,5 @@
 namespace InternManagement.Core.Models
 {
-    /// <summary>Tài khoản đăng nhập. Mentor/Intern có tài khoản gắn với hồ sơ tương ứng.</summary>
     public class User
     {
         public int Id { get; set; }
@@ -14,7 +13,6 @@ namespace InternManagement.Core.Models
         public int? InternId { get; set; }
         public Intern Intern { get; set; }
 
-        /// <summary>Tên hiển thị trên giao diện.</summary>
         public string DisplayName
         {
             get

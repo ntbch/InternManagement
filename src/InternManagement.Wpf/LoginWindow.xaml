@@ -11,7 +11,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Phần đầu màu xanh -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="24,20">
             <StackPanel>
                 <TextBlock Text="HỆ THỐNG QUẢN LÝ" Foreground="White" FontSize="14" Opacity="0.85" />

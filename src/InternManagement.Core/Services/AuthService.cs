@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternManagement.Core.Services
 {
-    /// <summary>Đăng nhập và đổi mật khẩu.</summary>
     public class AuthService
     {
         private readonly Func<AppDbContext> _createDb;
@@ -18,7 +17,6 @@ namespace InternManagement.Core.Services
             _createDb = createDb;
         }
 
-        /// <summary>Trả về tài khoản nếu đúng tên đăng nhập và mật khẩu; sai thì ném ValidationException.</summary>
         public User Login(string username, string password)
         {
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrEmpty(password))

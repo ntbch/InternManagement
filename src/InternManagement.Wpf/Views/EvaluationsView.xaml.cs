@@ -8,11 +8,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Màn hình Đánh giá thực tập sinh:
-    /// - Admin xem tất cả đánh giá ở chế độ chỉ đọc (ẩn nút Thêm/Sửa/Xóa, hiển thị ghi chú).
-    /// - Mentor xem và quản lý các phiếu đánh giá do chính mình tạo (có nút Thêm/Sửa/Xóa).
-    /// </summary>
     public partial class EvaluationsView : UserControl
     {
         public EvaluationsView()
@@ -86,7 +81,6 @@ namespace InternManagement.Wpf.Views
                 LoadData();
         }
 
-        /// <summary>Nhấp đúp vào một dòng để sửa (bỏ qua tiêu đề cột, thanh cuộn, vùng trống).</summary>
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ItemsControl.ContainerFromElement(grid, (DependencyObject)e.OriginalSource) is DataGridRow)
@@ -99,7 +93,6 @@ namespace InternManagement.Wpf.Views
                 return;
 
             List<Intern> interns = AppServices.Interns.Search(mentorId: Session.MentorId);
-            // Đảm bảo thực tập sinh của phiếu đánh giá này luôn có trong danh sách chọn
             if (Selected.Intern != null && interns != null && !interns.Any(i => i.Id == Selected.InternId))
             {
                 interns.Insert(0, Selected.Intern);

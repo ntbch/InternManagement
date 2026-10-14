@@ -4,7 +4,6 @@
         Title="Thực tập sinh" Width="640" SizeToContent="Height"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
     <StackPanel Margin="20">
-        <!-- Form nhập liệu 2 cột sử dụng Grid -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -12,7 +11,6 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Cột trái: Thông tin cá nhân -->
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Mã thực tập sinh *" Style="{StaticResource FieldLabel}" />
                 <TextBox x:Name="txtCode" Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" />
@@ -33,7 +31,6 @@
                 <TextBox Text="{Binding Major, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
 
-            <!-- Cột phải: Thông tin thực tập và phân công -->
             <StackPanel Grid.Column="2">
                 <TextBlock Text="Ngày bắt đầu *" Style="{StaticResource FieldLabel}" />
                 <DatePicker SelectedDate="{Binding StartDate}" />
@@ -59,11 +56,9 @@
             </StackPanel>
         </Grid>
 
-        <!-- Ghi chú tài khoản chỉ hiển thị khi thêm mới thực tập sinh -->
         <TextBlock x:Name="txtAccountNote" Text="Tài khoản đăng nhập: mã TTS, mật khẩu mặc định 123456"
                    Foreground="{StaticResource MutedBrush}" FontStyle="Italic" Margin="0,16,0,0" />
 
-        <!-- Thanh nút điều khiển Lưu và Hủy -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
             <Button Content="Lưu" Style="{StaticResource PrimaryButton}" IsDefault="True" Click="Save_Click" />
             <Button Content="Hủy" IsCancel="True" Margin="0" />

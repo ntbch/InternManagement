@@ -5,9 +5,7 @@
         <StackPanel>
             <TextBlock Text="Tổng quan" Style="{StaticResource PageTitle}" />
 
-            <!-- 6 Thẻ số liệu thống kê tổng quan (WrapPanel) -->
             <WrapPanel Margin="0,0,0,10">
-                <!-- 1. Tổng thực tập sinh -->
                 <Border Style="{StaticResource Card}" MinWidth="160">
                     <StackPanel>
                         <TextBlock Text="Tổng thực tập sinh" Foreground="{StaticResource MutedBrush}" FontSize="13" />
@@ -15,7 +13,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- 2. Đang thực tập -->
                 <Border Style="{StaticResource Card}" MinWidth="160">
                     <StackPanel>
                         <TextBlock Text="Đang thực tập" Foreground="{StaticResource MutedBrush}" FontSize="13" />
@@ -23,7 +20,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- 3. Mentor -->
                 <Border Style="{StaticResource Card}" MinWidth="160">
                     <StackPanel>
                         <TextBlock Text="Mentor" Foreground="{StaticResource MutedBrush}" FontSize="13" />
@@ -31,7 +27,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- 4. Phòng ban -->
                 <Border Style="{StaticResource Card}" MinWidth="160">
                     <StackPanel>
                         <TextBlock Text="Phòng ban" Foreground="{StaticResource MutedBrush}" FontSize="13" />
@@ -39,7 +34,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- 5. Công việc quá hạn (chữ đỏ DangerBrush khi > 0) -->
                 <Border Style="{StaticResource Card}" MinWidth="160">
                     <StackPanel>
                         <TextBlock Text="Công việc quá hạn" Foreground="{StaticResource MutedBrush}" FontSize="13" />
@@ -47,7 +41,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- 6. Điểm đánh giá TB (hiển thị '—' nếu chưa có đánh giá nào) -->
                 <Border Style="{StaticResource Card}" MinWidth="160">
                     <StackPanel>
                         <TextBlock Text="Điểm đánh giá TB" Foreground="{StaticResource MutedBrush}" FontSize="13" />
@@ -56,14 +49,12 @@
                 </Border>
             </WrapPanel>
 
-            <!-- Hai biểu đồ cột cạnh nhau (Grid 2 cột) -->
             <Grid Margin="0,6,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Biểu đồ 1: Thực tập sinh theo trạng thái -->
                 <Border Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,6,12">
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Top" Text="Thực tập sinh theo trạng thái"
@@ -73,7 +64,6 @@
                     </DockPanel>
                 </Border>
 
-                <!-- Biểu đồ 2: Thực tập sinh theo phòng ban -->
                 <Border Grid.Column="1" Style="{StaticResource Card}" Margin="6,0,0,12">
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Top" Text="Thực tập sinh theo phòng ban"

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using InternManagement.Core.Helpers;
@@ -6,12 +7,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Sơ đồ tổ chức phân cấp: Phòng ban -> Mentor -> Thực tập sinh.
-    /// Minh họa sử dụng TreeView trong WPF và tính ĐA HÌNH (Polymorphism) trong OOP:
-    /// Gọi person.GetDisplayInfo() trên biến kiểu cha Person,
-    /// phương thức ảo sẽ tự động thực thi phiên bản phù hợp của Mentor hoặc Intern tại runtime.
-    /// </summary>
     public partial class OrgTreeView : UserControl
     {
         public OrgTreeView()
@@ -29,60 +24,47 @@ namespace InternManagement.Wpf.Views
             {
                 var deptNode = new TreeViewItem
                 {
-                    Header = "🏢 " + dept.Name + " (" + dept.Interns.Count + " TTS)",
+                    Header = dept.Name + " (" + dept.Interns.Count + " TTS)",
                     Tag = dept,
-                    IsExpanded = true // Tự động mở rộng các nút phòng ban
+                    IsExpanded = true
                 };
 
-                // Nạp các mentor thuộc phòng ban
                 foreach (Mentor mentor in dept.Mentors)
                 {
                     var mentorNode = new TreeViewItem
                     {
-                        Header = "👤 " + mentor.FullName,
+                        Header = mentor.FullName,
                         Tag = mentor
                     };
 
-                    // Nạp các thực tập sinh được mentor này hướng dẫn
                     foreach (Intern intern in mentor.Interns)
                     {
-                        var internNode = new TreeViewItem
+                        mentorNode.Items.Add(new TreeViewItem
                         {
-                            Header = "🎓 " + intern.Code + " - " + intern.FullName,
+                            Header = intern.Code + " - " + intern.FullName,
                             Tag = intern
-                        };
-                        mentorNode.Items.Add(internNode);
+                        });
                     }
 
                     deptNode.Items.Add(mentorNode);
                 }
 
-                // Nhóm các thực tập sinh thuộc phòng ban nhưng chưa được phân công mentor
-                var unassignedInterns = new List<Intern>();
-                foreach (Intern i in dept.Interns)
-                {
-                    if (i.MentorId == null)
-                    {
-                        unassignedInterns.Add(i);
-                    }
-                }
-
+                var unassignedInterns = dept.Interns.Where(i => i.MentorId == null).ToList();
                 if (unassignedInterns.Count > 0)
                 {
                     var unassignedNode = new TreeViewItem
                     {
-                        Header = "⚠️ Chưa có mentor (" + unassignedInterns.Count + ")",
+                        Header = "Chưa có mentor (" + unassignedInterns.Count + ")",
                         Tag = "UnassignedGroup"
                     };
 
                     foreach (Intern intern in unassignedInterns)
                     {
-                        var internNode = new TreeViewItem
+                        unassignedNode.Items.Add(new TreeViewItem
                         {
-                            Header = "🎓 " + intern.Code + " - " + intern.FullName,
+                            Header = intern.Code + " - " + intern.FullName,
                             Tag = intern
-                        };
-                        unassignedNode.Items.Add(internNode);
+                        });
                     }
 
                     deptNode.Items.Add(unassignedNode);
@@ -103,8 +85,6 @@ namespace InternManagement.Wpf.Views
 
             object tag = selectedItem.Tag;
 
-            // Kiểm tra kiểu dữ liệu của Tag:
-            // Nếu là Person (Mentor hoặc Intern): gọi phương thức ảo GetDisplayInfo() (tính ĐA HÌNH)
             if (tag is Person)
             {
                 Person person = (Person)tag;
@@ -134,9 +114,6 @@ namespace InternManagement.Wpf.Views
             txtPlaceholder.Visibility = Visibility.Collapsed;
             panelContent.Visibility = Visibility.Visible;
 
-            // Gọi phương thức ảo (virtual) GetDisplayInfo() - minh họa tính ĐA HÌNH trong OOP:
-            // Biến person có kiểu khai báo là Person, nhưng tại thời điểm chạy (runtime),
-            // chương trình sẽ tự động gọi GetDisplayInfo() của lớp con tương ứng (Mentor hoặc Intern).
             txtLine1.Text = person.GetDisplayInfo();
             txtLine2.Text = "Điện thoại: " + (string.IsNullOrEmpty(person.Phone) ? "(Chưa cập nhật)" : person.Phone);
 
@@ -167,7 +144,7 @@ namespace InternManagement.Wpf.Views
             txtPlaceholder.Visibility = Visibility.Collapsed;
             panelContent.Visibility = Visibility.Visible;
 
-            txtLine1.Text = "🏢 " + dept.Name;
+            txtLine1.Text = dept.Name;
             txtLine2.Text = "Mô tả: " + (string.IsNullOrEmpty(dept.Description) ? "(Không có mô tả)" : dept.Description);
             txtLine3.Text = "Số mentor: " + dept.Mentors.Count;
             txtLine4.Text = "Số thực tập sinh: " + dept.Interns.Count;

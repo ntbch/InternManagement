@@ -2,7 +2,6 @@ using System;
 
 namespace InternManagement.Core.Models
 {
-    /// <summary>Công việc mentor giao cho thực tập sinh.</summary>
     public class TaskItem
     {
         public int Id { get; set; }

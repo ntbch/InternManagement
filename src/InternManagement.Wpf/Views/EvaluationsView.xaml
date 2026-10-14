@@ -4,7 +4,6 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Text="Đánh giá thực tập sinh" Style="{StaticResource PageTitle}" />
 
-        <!-- Ghi chú cho tài khoản không phải mentor (Admin chỉ được xem) -->
         <TextBlock x:Name="txtAdminNote" DockPanel.Dock="Top"
                    Text="Chỉ mentor hướng dẫn mới được tạo/sửa đánh giá"
                    Foreground="{StaticResource MutedBrush}"
@@ -12,16 +11,13 @@
                    Margin="0,0,0,10"
                    Visibility="Collapsed" />
 
-        <!-- Thanh thao tác cho Mentor (Thêm, Sửa, Xóa) -->
         <StackPanel x:Name="actionBar" DockPanel.Dock="Top" Style="{StaticResource ActionBar}">
             <Button Content="Thêm" Style="{StaticResource PrimaryButton}" Click="Add_Click" />
             <Button x:Name="btnEdit" Content="Sửa" Click="Edit_Click" />
             <Button x:Name="btnDelete" Content="Xóa" Style="{StaticResource DangerButton}" Click="Delete_Click" />
         </StackPanel>
 
-        <!-- Bảng danh sách phiếu đánh giá -->
         <DataGrid x:Name="grid" SelectionChanged="Grid_SelectionChanged" MouseDoubleClick="Grid_MouseDoubleClick">
-            <!-- DataTrigger trên DataGridRow: tô màu chữ theo xếp loại (Giỏi: xanh lá, Yếu: đỏ) -->
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>

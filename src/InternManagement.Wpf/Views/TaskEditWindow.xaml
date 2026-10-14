@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Công việc" Width="460" SizeToContent="Height"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
-    <!-- DataContext là đối tượng TaskItem; các ô nhập dữ liệu Binding hai chiều với các thuộc tính -->
     <StackPanel Margin="20">
         <TextBlock Text="Thực tập sinh *" Style="{StaticResource FieldLabel}" />
         <ComboBox x:Name="cboIntern" SelectedValuePath="Id"

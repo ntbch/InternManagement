@@ -46,7 +46,6 @@ namespace InternManagement.Wpf
             ShowLogin();
         }
 
-        /// <summary>Hiện cửa sổ đăng nhập; đăng nhập thành công thì mở màn hình chính, hủy thì thoát.</summary>
         public void ShowLogin()
         {
             Session.CurrentUser = null;

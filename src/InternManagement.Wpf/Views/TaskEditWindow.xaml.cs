@@ -7,10 +7,6 @@ using InternManagement.Core.Models;
 
 namespace InternManagement.Wpf.Views
 {
-    /// <summary>
-    /// Cửa sổ Thêm/Sửa công việc: truyền null để thêm mới, truyền đối tượng để sửa.
-    /// DataContext gán bằng TaskItem, các control Binding hai chiều với các thuộc tính.
-    /// </summary>
     public partial class TaskEditWindow : Window
     {
         private readonly TaskItem _task;
@@ -36,7 +32,6 @@ namespace InternManagement.Wpf.Views
 
             Title = _isNew ? "Giao việc mới" : "Sửa công việc";
 
-            // Đảm bảo thực tập sinh của công việc hiện diện trong danh sách ComboBox
             var internList = new List<Intern>(interns ?? new List<Intern>());
             if (!_isNew && _task.Intern != null && !internList.Any(i => i.Id == _task.InternId))
             {
@@ -44,7 +39,6 @@ namespace InternManagement.Wpf.Views
             }
             cboIntern.ItemsSource = internList;
 
-            // Nạp các giá trị enum trạng thái
             cboStatus.ItemsSource = Enum.GetValues(typeof(TaskItemStatus));
 
             DataContext = _task;
