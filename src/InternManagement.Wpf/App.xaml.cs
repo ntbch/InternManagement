@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
+using SQLitePCL;
 
 namespace InternManagement.Wpf
 {
@@ -29,6 +30,9 @@ namespace InternManagement.Wpf
 
             try
             {
+                // Ensure native SQLite provider initialized for apps running on .NET Framework
+                Batteries_V2.Init();
+
                 AppServices.Initialize();
             }
             catch (Exception ex)

@@ -8,10 +8,32 @@
     <AssemblyTitle>Hệ thống quản lý thực tập sinh</AssemblyTitle>
     <!-- Cho phép build (không chạy) trên Linux/macOS -->
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <!-- Force 64-bit process so native SQLite x64 DLLs match process architecture. Change to x86 if you need 32-bit. -->
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InternManagement.Core\InternManagement.Core.csproj" />
+    <!-- Ensure native SQLite runtime assets are copied to the WPF app output -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.12" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" />
+    <PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.12" />
   </ItemGroup>
+
+  <!-- Ensure native e_sqlite3.dll is copied into the app output for the chosen platform -->
+  <Target Name="CopySqliteNative" AfterTargets="Build">
+    <PropertyGroup>
+      <SqlitePackagePath>$(USERPROFILE)\.nuget\packages\sqlitepclraw.lib.e_sqlite3\2.1.12\runtimes</SqlitePackagePath>
+      <OutRuntimes>$(OutputPath)runtimes</OutRuntimes>
+    </PropertyGroup>
+    <!-- Copy x64 native DLL -->
+    <ItemGroup>
+      <SqliteNativeFiles Include="$(SqlitePackagePath)\win-x64\native\e_sqlite3.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SqliteNativeFiles)" DestinationFiles="@(SqliteNativeFiles->'$(OutRuntimes)\\win-x64\\native\\%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <!-- Also copy root DLL for fallback -->
+    <Copy SourceFiles="@(SqliteNativeFiles)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
+  </Target>
 
 </Project>
